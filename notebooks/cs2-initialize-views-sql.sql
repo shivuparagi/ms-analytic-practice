@@ -11,7 +11,7 @@
 
 -- COMMAND ----------
 
-CREATE OR REPLACE GLOBAL TEMPORARY VIEW ProcessedOrdersView
+CREATE OR REPLACE TEMPORARY VIEW ProcessedOrdersView
 AS
   SELECT FS.SaleID, TO_DATE(T.PK_Date, 'yyyy-mm-dd') AS SaleDate, YEAR(TO_DATE(T.PK_Date, 'yyyy-mm-dd')) AS OrderYear,
     FS.Units AS TotalUnits, FS.SaleAmount AS TotalSalesAmount,
@@ -37,6 +37,10 @@ AS
   JOIN CaseStudyDB.Products AS P ON P.ProductID = FS.ProductID
   JOIN CaseStudyDB.ProductSubcategories AS PS ON PS.ProductSubcategoryID = P.ProductSubcategoryID
   JOIN CaseStudyDB.ProductCategories AS PC ON PC.ProductCategoryID = PS.ProductCategoryID
+
+-- COMMAND ----------
+
+select * from ProcessedOrdersView
 
 -- COMMAND ----------
 
